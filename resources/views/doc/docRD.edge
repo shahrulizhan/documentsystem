@@ -1,0 +1,192 @@
+@layout('admin/adminlayout')
+
+@section('content')
+
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div>Research and Development(RD)</div>
+            </div>      
+        </div>
+    </div>
+    <div class="data-table-area mg-b-15" >
+        <div class="container-fluid">
+            <div class="sparkline13-list">
+                <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3"></div>  
+                        <div class="col-sm-12 col-md-3"></div>
+                        <div class="col-sm-12 col-md-3"></div>
+                        <div class="col-sm-12 col-md-3">
+                            <button class="btn btn-primary btn-block" type="button" id="btnProcessRequest">upload</button>   
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="example" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th style="width: 43px;" data-field="id" tabindex="0">
+                                            <div class="th-inner ">No.</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                        <th style="width: 213px;" data-field="code" tabindex="0">
+                                            <div class="th-inner ">Code</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                        <th style="width: 183px;" data-field="email" tabindex="0">
+                                            <div class="th-inner ">Name</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                        <th style="width: 213px;" data-field="name" tabindex="0">
+                                            <div class="th-inner ">Date uploaded</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                        <th style="width: 77px;" data-field="action" tabindex="0">
+                                            <div class="th-inner ">Action</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @each(file in rds)
+                                    <tr> 
+                                        <td >{{ ($loop.index + 1) }}</td> 
+                                        <td >RD00{{ file.code }}</td> 
+                                        <td  data-value="{{ file.name }}">{{ file.name }}</td> 
+                                        <td id="date">{{ file.created_at }}</td>       
+                                        <td class="datatable-ct" style="">
+                                            <a title="Edit" class="btn pd-setting-ed" onclick="edit('{{file.code}}','{{file.name}}')" class="w3-button w3-black"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                            <a title="view" class="btn pd-setting-ed" onclick="view('{{file.file_name}}','{{file.ext}}')" class="w3-button w3-black"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <a title="Download" class="btn pd-setting-ed" href="{{ appUrl() }}/uploads/rd/{{ file.file_name }}.{{ file.ext }}" download="{{ file.name }}"><i class="fa fa-download" aria-hidden="true"></i></a>                              
+                                            <a href="{{ appUrl() }}/deleterdbc/{{ file.file_name }}" class="btn pd-setting-ed"><i class="fa fa-trash" aria-hidden="true"></i></a> 
+                                        </td>
+                                    </tr>
+                                    @endeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+     
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    
+    function edit(id, name){
+        Swal.fire({
+            title: 'Update your file',
+            showCancelButton: true,
+            confirmButtonText: 'Update',
+            input: 'text',
+            inputValue: name,
+            allowOutsideClick: false,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'You need to write something!'
+                }
+            }    
+        }).then(async (name) => {
+            
+            
+            if (name.dismiss === Swal.DismissReason.cancel) {
+                console.log("click cancel jer")
+    
+                await Swal.fire({
+                    icon: 'info',
+                    title: 'Done Cancel', 
+                    timer: 3000,
+                })
+            } else {
+                console.log("click update YES jer") 
+                var formData = new FormData();
+                                
+                formData.append("name", name.value);
+                
+                $.ajax({
+                    method: 'put',
+                    url: 'editrdbc/'+id,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (resp) {
+                        Swal.fire('Updated', 'Your file name have been updated', 'success').then(function(){location.reload()});
+                    },
+                    error: function() {
+                        Swal.fire({ type: 'error', title: 'Oops...', text: 'Something went wrong!' })
+                    }
+    
+                    
+                })
+            }
+            
+        })
+    }   
+    
+    </script>
+    <script>
+    
+        function view(name, ext){
+            Swal.fire({
+                  html:'<embed src="{{ appUrl() }}/uploads/rd/'+name+'.'+ext+'" frameborder="0" width="100%" height="600px">',
+                  allowOutsideClick: false,
+            })
+        }   
+        
+    </script>
+    
+    <script>
+    
+        $('#btnProcessRequest').click(function() {
+            console.log("jsfdj")
+            Swal.fire({
+                title: 'Select a file',
+                showCancelButton: true,
+                confirmButtonText: 'Upload',
+                input: 'file',
+                allowOutsideClick: false,
+                inputAttributes: {
+                    accept: "multipart/form-data",
+                    multiple:"multiple",
+                },
+            }).then((file) => {
+                
+                if (file.value) {
+                    var formData = new FormData();
+                    
+                    for(var i = 0; i < file.value.length; i++){                    
+                      formData.append("files", $('.swal2-file')[0].files[i]);
+                    }
+                    
+                    $.ajax({
+                        method: 'post',
+                        url: 'upload',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (resp) {
+                            Swal.fire('Uploaded', 'Your file have been uploaded', 'success').then(function(){location.reload()});
+                        },
+                        error: function() {
+                            Swal.fire({ type: 'error', title: 'Oops...', text: 'Something went wrong!' })
+                        }
+    
+                        
+                    })
+                }
+            })
+        })
+       
+    </script>       
+  
+   
+
+
+
+
+@endsection

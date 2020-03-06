@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+    dms:
+        build: .
+        container_name: "dms"
+        image: "dms-cc"
+        ports:
+            - "3333:3333"
+        restart: unless-stopped

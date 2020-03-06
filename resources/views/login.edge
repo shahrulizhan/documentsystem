@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="assets/login/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="assets/login/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url(assets/login/images/bg-01.jpg);">
+					<span class="login100-form-title-1">
+						Sign In
+					</span>
+				</div>
+				@if(flashMessage('message'))
+					<div class="alert alert-{{ flashMessage('message.status') }} text-center"> {{ flashMessage('message.text') }} </div>
+				@endif
+                <form method="POST" action="/login" class="login100-form validate-form">
+                    {{ csrfField() }}
+					<div class="wrap-input100 validate-input m-b-26" data-validate="employee id is required">
+                        <span class="label-input100">Employee ID</span>
+                        <input id="employee_id" class="input100" type="text" name="employee_id" value="{{ old('employee_id') }}" style="text-transform: uppercase;">
+                        @if(hasErrorFor('employee_id'))
+                        <div class="alert alert-danger mb-2 mt-2">{{ getErrorFor('employee_id') }}</div>
+                        @endif
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+						<span class="label-input100">Password</span>
+                        <input id="password" class="input100" type="password" name="password" value="{{ old('password', '') }}">
+                        @if(hasErrorFor('password'))
+                        <div class="alert alert-danger mb-2 mt-2">{{ getErrorFor('password') }}</div>
+                        @endif
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="flex-sb-m w-full p-b-30">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label>
+						</div>
+
+						<div>
+							<a onclick="reset()" href="#" class="txt1">
+								Forgot Password?
+							</a>
+						</div>
+					</div>
+                    
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" type="submit" id="signInButton">
+							Login
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script src="sweetalert2.all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+
+	<script>
+		function reset() {
+			swal.fire({
+				title: "Insert your email",
+				input: "email",
+				showCancelButton: true,
+				confirmButtonColor: "#1FAB45",
+				confirmButtonText: "Confirm",
+				cancelButtonText: "Cancel",
+				buttonsStyling: true,
+				allowOutsideClick: false,
+				inputValidator: (email) => {
+					return !email && 'Please insert your email!'
+				}
+				}).then(function (email) {
+					if(email.value){
+						$.ajax({
+							url: "reset/"+email.value,
+							type: "GET",
+							success: function (data) {								
+								swal.fire("Done!", "Please check your email, "+email.value);
+							},
+							error: function (error) {
+								swal.fire("Error!", error.responseJSON.message);
+							}
+						});
+					}
+				})
+			}
+   </script>
+
+</body>
+</html>

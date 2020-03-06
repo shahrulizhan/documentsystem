@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Register</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="assets/login/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="assets/login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="assets/login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="assets/login/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url(assets/login/images/bg-01.jpg);">
+					<span class="login100-form-title-1">
+						register
+					</span>
+				</div>
+				@if(flashMessage('message'))
+					<div class="alert alert-{{ flashMessage('message.status') }} text-center"> {{ flashMessage('message.text') }} </div>
+				@endif
+                <form method="POST" action="/userRegister" class="login100-form validate-form">
+					{{ csrfField() }}
+
+					<div class="m-b-10" style="width:100%">
+						<div class="wrap-input100 validate-input" data-validate="Username is required">
+							<span class="label-input100">Username</span>
+							<input class="input100" type="text" name="username" value="{{ old('username') }}" required>
+							<span class="focus-input100"></span>
+						</div>
+						<br>
+						{{ elIf('<span class="text-danger">$self</span>', getErrorFor('username'), hasErrorFor('username')) }}
+					</div>
+
+					<div class="m-b-10" style="width:100%">
+						<div class="wrap-input100 validate-input" data-validate="employee id is required">
+							<span class="label-input100">Employee ID</span>
+							<input id="employee_id" class="input100" type="text" name="employee_id" value="{{ old('employee_id') }}" style="text-transform: uppercase;" required>
+							<span class="focus-input100"></span>
+						</div>
+						<br>
+						{{ elIf('<span class="text-danger">$self</span>', getErrorFor('employId'), hasErrorFor('employId')) }}
+					</div>
+
+					<div class="m-b-10" style="width:100%">
+						<div class="wrap-input100" data-validate="email is required">
+							<span class="label-input100">Email</span>
+							<input class="input100" type="email" name="email" value="{{ old('email') }}" required>
+							<span class="focus-input100"></span>
+						</div>
+						<br>
+						{{ elIf('<span class="text-danger">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+					</div>
+
+					<div class="m-b-10" style="width:100%">
+						<div class="wrap-input100 validate-input" data-validate = "Password is required">
+							<span class="label-input100">Password</span>
+							<input id="password" class="input100" type="password" name="password" required>
+							<span class="focus-input100"></span>
+						</div>
+						<br>
+						{{ elIf('<span class="text-danger">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+					</div>
+
+					<div class="m-b-10" style="width:100%">
+						<div class="wrap-input100 validate-input" data-validate = "Confirm password is required">
+							<span class="label-input100">Confirm Password</span>
+							<input id="password_confirmation" class="input100" type="password" name="password_confirmation" required>
+							<span class="focus-input100"></span>
+						</div>
+						<br>
+						{{ elIf('<span class="text-danger">$self</span>', getErrorFor('password_confirmation'), hasErrorFor('password_confirmation')) }}
+					</div>
+					
+					<div class="container-login100-form-btn pl-5">
+						<button class="btn btn-success loginbtn" type="submit" id="signupButton">Register</button>
+						&nbsp;&nbsp;
+						<button onclick="functioncancel()" class="btn btn-danger">Cancel</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function functioncancel() {
+			window.location.href = '/';
+		}
+	
+	  </script>
+	
+<!--===============================================================================================-->
+	<script src="assets/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="assets/login/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="assets/login/vendor/bootstrap/js/popper.js"></script>
+	<script src="assets/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="assets/login/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="assets/login/vendor/daterangepicker/moment.min.js"></script>
+	<script src="assets/login/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="assets/login/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="assets/login/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+@layout('user/layoutuser')
+
+@section('content')
+
+<div class="app-main__inner">
+                
+    <div class="row">
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="card-shadow-primary card-border mb-3 card">
+                <div class="dropdown-menu-header">
+                    <div class="dropdown-menu-header-inner" style=" background-color:cadetblue;">
+                        <div class="menu-header-content">
+                            <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+                                <div class="avatar-icon"><img src="assets/images/avatars/Ammar.png" alt="Avatar 5"></div>
+                            </div>
+                            <div><h5 class="menu-header-title">Research and Development(RD)</h5></div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3"><h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">Detail</h6>
+                    <ul class="rm-list-borders list-group list-group-flush"> 
+                        <li class="list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-3">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Members</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="font-size-xlg text-muted">
+                                            <span>20</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-3">
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Documents</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="font-size-xlg text-muted">
+                                            <span>
+                                                @if(!rds)
+                                                    0 
+                                                @else
+                                                    {{ rds }} 
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-center d-block card-footer">
+                    <button onclick="functionRd()" class="btn btn-info">Document</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="card-shadow-primary card-border mb-3 card">
+                <div class="dropdown-menu-header">
+                    <div class="dropdown-menu-header-inner " style=" background-color:cadetblue;">
+                        <div class="menu-header-content">
+                            <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+                                <div class="avatar-icon"><img src="assets/images/avatars/anum.jpg" alt="Avatar 5"></div>
+                            </div>
+                            <div><h5 class="menu-header-title">Project Management Officer (PM)</h5></div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3"><h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">Detail</h6>
+                    <ul class="rm-list-borders list-group list-group-flush"> 
+                        <li class="list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-3">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Members</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="font-size-xlg text-muted">
+                                            <span>18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-3">
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Documents</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="font-size-xlg text-muted">
+                                            <span>
+                                                @if(!pmos)
+                                                    0 
+                                                @else
+                                                    {{ pmos }} 
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-center d-block card-footer">
+                    <button  onclick="functionpmo()" class="btn btn-info">Document</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="card-shadow-primary card-border mb-3 card">
+                <div class="dropdown-menu-header">
+                    <div class="dropdown-menu-header-inner " style=" background-color:cadetblue;">
+                        <div class="menu-header-content">
+                            <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+                                <div class="avatar-icon"><img src="assets/images/avatars/Baihaqi.png" alt="Avatar 5"></div>
+                            </div>
+                            <div><h5 class="menu-header-title">It</h5></div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3"><h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">Detail</h6>
+                    <ul class="rm-list-borders list-group list-group-flush"> 
+                        <li class="list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-3">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Members</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="font-size-xlg text-muted">
+                                            <span>18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-3">
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Documents</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="font-size-xlg text-muted">
+                                            <span>
+                                                @if(!its)
+                                                    0 
+                                                @else
+                                                    {{ its }} 
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-center d-block card-footer">
+                    <button onclick="functionit()" class="btn btn-info">Document</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="card-shadow-primary card-border mb-3 card">
+                <div class="dropdown-menu-header">
+                    <div class="dropdown-menu-header-inner"  style=" background-color: cadetblue;">
+                        <div class="menu-header-content">
+                            <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+                                <div class="avatar-icon"><img src="assets/images/avatars/Norlisa.png" alt="Avatar 5"></div>
+                            </div>
+                            <div><h5 class="menu-header-title">Corp</h5></div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="p-3"><h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">Detail</h6>
+                    <ul class="rm-list-borders list-group list-group-flush"> 
+                        <li class="list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-3">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Members</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="font-size-xlg text-muted">
+                                            <span>18</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="widget-content p-0">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left mr-3">
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">Documents</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="font-size-xlg text-muted">
+                                            <span>
+                                                @if(!corps)
+                                                    0 
+                                                @else
+                                                    {{ corps }} 
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-center d-block card-footer">
+                    <button  onclick="functioncorp('{{auth.user.department}}')" class="btn btn-info">Document</button>
+                </div>
+            </div>
+        </div>
+        
+    </div> 
+   
+</div>
+
+
+
+<script>
+
+    function functionRd() {
+        window.location.href = '/docRD';
+    }
+
+    function functionpmo() {
+        window.location.href = '/docPMO';
+    }
+    
+    function functionit() {
+        window.location.href = '/docIT';
+    }
+
+    function functioncorp(department) {
+        if(department==="hr"){
+            window.location.href = '/docCORP';
+        }
+        else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Forbidden',
+            })
+        }
+    }
+    
+</script>
+
+
+
+@endsection

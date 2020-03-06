@@ -1,0 +1,85 @@
+@layout('user/layoutuser')
+
+@section('content')
+
+<div class="app-main__inner">
+    <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div>CORP</div>
+            </div>      
+        </div>
+    </div>
+    <div class="data-table-area mg-b-15" >
+        <div class="container-fluid">
+            <div class="sparkline13-list">
+                <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="example" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th style="width: 43px;" data-field="id" tabindex="0">
+                                            <div class="th-inner ">No.</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                        <th style="width: 213px;" data-field="code" tabindex="0">
+                                            <div class="th-inner ">Code</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                        <th style="width: 183px;" data-field="email" tabindex="0">
+                                            <div class="th-inner ">Name</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                        <th style="width: 213px;" data-field="name" tabindex="0">
+                                            <div class="th-inner ">Date uploaded</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                        <th style="width: 77px;" data-field="action" tabindex="0">
+                                            <div class="th-inner ">Action</div>
+                                            <div class="fht-cell"></div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @each(file in corps)
+                                    <tr> 
+                                        <td >{{ ($loop.index + 1) }}</td> 
+                                        <td > RD00{{ file.code }}</td> 
+                                        <td  id="name">{{ file.name }}</td> 
+                                        <td id="date">{{ file.created_at }}</td>      
+                                        <td class="datatable-ct"   > 
+                                            <a title="Edit" class="btn pd-setting-ed" onclick="edit('{{file.file_name}}','{{file.ext}}')" class="w3-button w3-black"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                    @endeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+   
+
+<script>
+    
+    function edit(name, ext){
+        Swal.fire({
+              html:'<embed src="{{ appUrl() }}/uploads/corp/'+name+'.'+ext+'" frameborder="0" width="100%" height="600px">',
+              allowOutsideClick: false,
+          
+        })
+    }   
+    
+</script>
+
+
+
+
+@endsection
